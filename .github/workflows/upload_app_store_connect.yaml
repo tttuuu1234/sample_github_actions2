@@ -51,7 +51,6 @@ jobs:
       - name: Create ipa file
         # GITHUB_RUN_NUMBER をビルドナンバーに指定することで被りがないようにしている。
         run: |
-          cd build/ios && ls -la && cd ../../
           flutter build ipa --export-options-plist=ios/DevExportOptions.plist --build-number ${GITHUB_RUN_NUMBER}
 
       # AppStoreConnect にアップロードする
