@@ -10,7 +10,6 @@
 	<true/>
 	<key>method</key>
 	<string>app-store-connect</string>
-	<string>app-store</string>
 	<key>provisioningProfiles</key>
 	<dict>
 		<key>com.test.sampleGithubActions2.dev</key>
