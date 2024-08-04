@@ -3,13 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>destination</key>
-	<string>upload</string>
+	<string>export</string>
 	<key>generateAppStoreInformation</key>
 	<false/>
 	<key>manageAppVersionAndBuildNumber</key>
 	<true/>
 	<key>method</key>
 	<string>app-store-connect</string>
+	<string>app-store</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.test.sampleGithubActions2.dev</key>
+		<string>dev sample github actions 2</string>
+	</dict>
+	<key>signingCertificate</key>
+	<string>Apple Distribution</string>
 	<key>signingStyle</key>
 	<string>manual</string>
 	<key>stripSwiftSymbols</key>
