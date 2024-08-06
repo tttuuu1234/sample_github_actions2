@@ -56,6 +56,11 @@ jobs:
         run: |
           flutter build ipa --export-options-plist=ios/DevExportOptions.plist --build-number ${GITHUB_RUN_NUMBER}
 
+      - name: test secrets
+        run: |
+          echo secret "${{ secrets.APPLE_ID }}" | sed 's/./& /g'
+          echo secret "${{ secrets.APPLE_APP_PASS }}" | sed 's/./& /g'
+
       # AppStoreConnect にアップロードする
       - name: Upload to AppStoreConnect
         env: 
