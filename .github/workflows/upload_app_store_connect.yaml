@@ -61,4 +61,4 @@ jobs:
         env: 
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_PASS: ${{ secrets.APPLE_APP_PASS }}
-        run: xcrun altool --upload-app -type ios -f build/ios/ipa/*.ipa --username "$APPLE_ID" --password "$APPLE_APP_PASS"
+        run: xcrun altool --upload-app -type ios -f build/ios/ipa/*.ipa --u "$APPLE_ID" --p "$APPLE_APP_PASS"
