@@ -19,19 +19,19 @@ jobs:
       - name: Checks-out my repository # step に名前をつけられる なくてもいい
         uses: actions/checkout@v2
 
-      # - name: Set up flutter
-      #   uses: subosito/flutter-action@v2
-      #   with:
-      #     flutter-version: 3.22.2
-      #     channel: 'stable'
-      #     cache: true
+      - name: Set up flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.22.2
+          channel: 'stable'
+          cache: true
       # Flutter のインストール
-      - name: Install Flutter
-        run: git clone https://github.com/flutter/flutter.git
+      # - name: Install Flutter
+      #   run: git clone https://github.com/flutter/flutter.git
 
-      # PATH を通す
-      - name: Add path
-        run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH # GITHUB_PATH にどんどんぶちこめばいいらしい
+      # # PATH を通す
+      # - name: Add path
+      #   run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH # GITHUB_PATH にどんどんぶちこめばいいらしい
 
       # パッケージのダウンロード
       - name: Download Flutter packages
