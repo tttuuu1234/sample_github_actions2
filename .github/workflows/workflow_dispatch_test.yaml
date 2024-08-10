@@ -4,11 +4,15 @@ on:
   push:
     branches: [main]
   workflow_dispatch: 
+    inputs:
+      name:
+        description: 'Name'
+        required: true
 
 jobs:
   workflow-dispatch-test:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: 手動実行成功
-        run: echo 手動実行した
+      - name: print log
+        run: echo Hello! ${{ github.event.inputs.name }}
