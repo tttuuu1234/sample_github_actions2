@@ -1,0 +1,14 @@
+name: ワークフロー手動実行テスト
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: 
+
+jobs:
+  workflow-dispatch-test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: 手動実行成功
+        run: echo 手動実行した
