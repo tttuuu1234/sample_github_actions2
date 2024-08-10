@@ -1,15 +1,14 @@
-name: Dev版をAppStoreConnectへのupload
+name: Upload AppStore
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  uoload_app_store_connect:
-    name: Dev版をAppStoreConnectにUpload
+  uoload_app_store:
     runs-on: macos-latest
     steps:
-      - name: Checks-out my repository
+      - name: Check-out my repository
         uses: actions/checkout@v2
 
       - name: Set up flutter
@@ -23,9 +22,17 @@ jobs:
         run: flutter pub get
 
       - name: Import Provisioning Profile
+        env:
+          PROVISIONING_PROFILE: ${{ github.ref == 'refs/heads/main' && secrets.DEV_PROVISIONING_PROFILE || secrets.DEV_PROVISIONING_PROFILE }}
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo -n ${{ secrets.DEV_PROVISIONING_PROFILE }} | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/distribution_dev_sample_github_actions_2.mobileprovision
+          echo -n "$PROVISIONING_PROFILE"
+          profile_name="distribution_dev_sample_github_actions_2"
+          if [[ "${{ github.ref == 'refs/heads/main' }}" ]]; then
+            profile_name="distribution_sample_github_actions_2"
+          fi
+          echo $profile_name
+          base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/$profile_name.mobileprovision
 
       - name: Import Code-Signing Certificates
         uses: Apple-Actions/import-codesign-certs@v1
@@ -35,7 +42,12 @@ jobs:
 
       - name: Create ipa file
         run: |
-          flutter build ipa --export-options-plist=ios/DevExportOptions.plist --build-number ${GITHUB_RUN_NUMBER}
+          export_options_file="DevExportOptions.plist"
+          if [[ "${{ github.ref == 'refs/heads/main' }}" ]]; then
+            export_options_file="ExportOptions.plist"
+          fi
+          echo $export_options_file
+          flutter build ipa --export-options-plist=ios/$export_options_file --build-number ${GITHUB_RUN_NUMBER}
 
       - name: Upload to AppStoreConnect
         env: 
