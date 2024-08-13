@@ -29,7 +29,7 @@ jobs:
           echo -n "$PROVISIONING_PROFILE"
           profile_name="distribution_dev_sample_github_actions_2"
           echo "${{ github.ref }}"
-          if [[ "${{ github.ref }}"" == "refs/heads/main" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo 条件満たしている
             profile_name="distribution_sample_github_actions_2"
           fi
@@ -45,7 +45,7 @@ jobs:
       - name: Create ipa file
         run: |
           export_options_file="DevExportOptions.plist"
-          if [[ "${{ github.ref }}"" == "refs/heads/main" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             export_options_file="ExportOptions.plist"
           fi
           echo $export_options_file
