@@ -31,6 +31,7 @@ jobs:
           if [[ "${{ github.ref == 'refs/heads/main' }}" ]]; then
             profile_name="distribution_sample_github_actions_2"
           fi
+          echo $profile_name
           echo $PROVISIONING_PROFILE | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/$profile_name.mobileprovision
 
       - name: Import Code-Signing Certificates
