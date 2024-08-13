@@ -2,7 +2,7 @@ name: Upload AppStore
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   uoload_app_store:
