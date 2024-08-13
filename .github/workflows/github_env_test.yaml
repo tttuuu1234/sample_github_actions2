@@ -1,0 +1,19 @@
+name: GitHubEnvのお試し
+
+on: 
+  push: 
+    branches: [develop]
+
+jobs:
+  github_env_test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: GitHubEnvに値保持
+        run: |
+          echo "is_main_branch=true" >> "$GITHUB_ENV"
+      
+      - name: GitHubEnvから保持した値の取得
+        run: |
+          echo $is_main_branch
+

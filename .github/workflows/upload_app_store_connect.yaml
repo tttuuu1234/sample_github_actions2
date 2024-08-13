@@ -2,7 +2,8 @@ name: Upload AppStore
 
 on:
   push:
-    branches: [ main, develop ]
+    # branches: [ main, develop ]
+    branches: [main]
 
 jobs:
   uoload_app_store:
@@ -20,6 +21,14 @@ jobs:
 
       - name: Download Flutter packages
         run: flutter pub get
+
+      # - name: Set github env variable for main branch
+      #   run: |
+      #     if [[ ${{ github.ref == 'refs/heads/main' }} ]]; then
+      #       echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
+      #     else
+      #       echo "IS_MAIN_BRANCH=false" >> $GITHUB_ENV
+      #     fi
 
       - name: Import Provisioning Profile
         env:
@@ -44,13 +53,18 @@ jobs:
           p12-password: ${{ secrets.DISTRIBUTION_CERTIFATE_P12_PASS }}
 
       - name: Create ipa file
+        env:
+          # secretsに保存したエンコード済みのjsonファイルをmainブランチかどうかで環境変数に保持する値を変更する
+          DART_DEFINES_BASE64: ${{ github.ref }}
         run: |
           export_options_file="DevExportOptions.plist"
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             export_options_file="ExportOptions.plist"
           fi
           echo $export_options_file
-          flutter build ipa --export-options-plist=ios/$export_options_file --build-number ${GITHUB_RUN_NUMBER}
+          # エンコードしてあるjsonファイルをデコードして元に戻す。
+          # 戻したjsonファイルをdart-defineに指定する。
+          flutter build ipa --export-options-plist=ios/$export_options_file --dart-define-from-file=dart_defines/dev.json --build-number ${GITHUB_RUN_NUMBER}
 
       - name: Upload to AppStoreConnect
         env: 
