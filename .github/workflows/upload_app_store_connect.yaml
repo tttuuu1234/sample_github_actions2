@@ -28,7 +28,9 @@ jobs:
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           echo -n "$PROVISIONING_PROFILE"
           profile_name="distribution_dev_sample_github_actions_2"
+          echo "${{ github.ref }}"
           if [[ "${{ github.ref == 'refs/heads/main' }}" ]]; then
+            echo 条件満たしている
             profile_name="distribution_sample_github_actions_2"
           fi
           echo $profile_name
