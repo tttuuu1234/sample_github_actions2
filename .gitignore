@@ -46,4 +46,4 @@ app.*.map.json
 .fvm/
 
 /dart-defines/
-+ **/ios/Flutter/Dart-Defines.xcconfig
+/ios/Flutter/Dart-Defines.xcconfig
