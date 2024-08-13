@@ -24,9 +24,10 @@ jobs:
       - name: Import Provisioning Profile
         env:
           PROVISIONING_PROFILE: ${{ github.ref == 'refs/heads/main' && secrets.PROVISIONING_PROFILE || secrets.DEV_PROVISIONING_PROFILE }}
+          MY_ENV_VAR: ${{ github.ref == 'refs/heads/main' && 'mainです' || 'その他です' }}
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo -n "$PROVISIONING_PROFILE"
+          echo $MY_ENV_VAR
           profile_name="distribution_dev_sample_github_actions_2"
           echo "${{ github.ref }}"
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
