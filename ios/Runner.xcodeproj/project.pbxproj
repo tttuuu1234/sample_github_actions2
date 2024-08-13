@@ -372,7 +372,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.sampleGithubActions2.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.sampleGithubActions2$(appIdSuffix)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "dev sample github actions 2";
@@ -557,7 +557,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.sampleGithubActions2.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.sampleGithubActions2$(appIdSuffix)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "dev sample github actions 2";
@@ -585,7 +585,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.sampleGithubActions2.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.test.sampleGithubActions2$(appIdSuffix)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "dev sample github actions 2";
