@@ -16,6 +16,7 @@ jobs:
             echo "is_main_branch=true" >> "$GITHUB_ENV"
           else
             echo "is_main_branch=false" >> "$GITHUB_ENV"
+          fi
       
       - name: GitHubEnvから保持した値の取得
         run: |
