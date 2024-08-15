@@ -2,8 +2,7 @@ name: Upload AppStore
 
 on:
   push:
-    # branches: [ main, develop ]
-    branches: [main]
+    branches: [ main, develop ]
 
 jobs:
   uoload_app_store:
@@ -25,22 +24,18 @@ jobs:
       # - name: Set github env variable for main branch
       #   run: |
       #     if [[ ${{ github.ref == 'refs/heads/main' }} ]]; then
-      #       echo "IS_MAIN_BRANCH=true" >> $GITHUB_ENV
+      #       echo "is_main_branch=true" >> $GITHUB_ENV
       #     else
-      #       echo "IS_MAIN_BRANCH=false" >> $GITHUB_ENV
+      #       echo "is_main_branch=false" >> $GITHUB_ENV
       #     fi
 
       - name: Import Provisioning Profile
         env:
           PROVISIONING_PROFILE: ${{ github.ref == 'refs/heads/main' && secrets.PROVISIONING_PROFILE || secrets.DEV_PROVISIONING_PROFILE }}
-          MY_ENV_VAR: ${{ github.ref == 'refs/heads/main' && 'mainです' || 'その他です' }}
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          echo $MY_ENV_VAR
           profile_name="distribution_dev_sample_github_actions_2"
-          echo "${{ github.ref }}"
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            echo 条件満たしている
             profile_name="distribution_sample_github_actions_2"
           fi
           echo $profile_name
@@ -55,16 +50,23 @@ jobs:
       - name: Create ipa file
         env:
           # secretsに保存したエンコード済みのjsonファイルをmainブランチかどうかで環境変数に保持する値を変更する
-          DART_DEFINES_BASE64: ${{ github.ref }}
+          DART_DEFINE_BASE64: ${{ github.ref == 'refs/heads/main' && secrets.DART_DEFINES_BASE64 || secrets.DEV_DART_DEFINES_BASE64}}
         run: |
           export_options_file="DevExportOptions.plist"
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             export_options_file="ExportOptions.plist"
           fi
-          echo $export_options_file
-          # エンコードしてあるjsonファイルをデコードして元に戻す。
-          # 戻したjsonファイルをdart-defineに指定する。
-          flutter build ipa --export-options-plist=ios/$export_options_file --dart-define-from-file=dart_defines/dev.json --build-number ${GITHUB_RUN_NUMBER}
+          echo TargetExportOptionsFile: ${export_options_file}
+
+          mkdir dart_defines
+          dart_define_file_name=dev
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            dart_define_file_name=prod
+          fi
+          echo TargetDartDefinesFileName: ${dart_define_file_name}
+
+          echo $DART_DEFINE_BASE64 | base64 -d > ~/dart_defines/$dart_define_file_name.json
+          flutter build ipa --export-options-plist=ios/$export_options_file --dart-define-from-file=dart_defines/$dart_define_file_name.json --build-number ${GITHUB_RUN_NUMBER}
 
       - name: Upload to AppStoreConnect
         env: 
