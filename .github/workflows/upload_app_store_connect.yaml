@@ -67,7 +67,7 @@ jobs:
 
           ls -la
 
-          touch /dart_defines/$dart_define_file_name.json
+          touch dart_defines/$dart_define_file_name.json
 
           cd dart_defines
           ls -la
