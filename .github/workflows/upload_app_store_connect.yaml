@@ -34,9 +34,9 @@ jobs:
           PROVISIONING_PROFILE: ${{ github.ref == 'refs/heads/main' && secrets.PROVISIONING_PROFILE || secrets.DEV_PROVISIONING_PROFILE }}
         run: |
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          profile_name="dev sample github actions2"
+          profile_name="dev_sample_github_actions2"
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            profile_name="sample github actions2"
+            profile_name="sample_github_actions_2"
           fi
           echo $profile_name
           echo $PROVISIONING_PROFILE | base64 -d > ~/Library/MobileDevice/Provisioning\ Profiles/$profile_name.mobileprovision
