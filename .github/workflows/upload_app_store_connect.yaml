@@ -65,7 +65,7 @@ jobs:
           fi
           echo TargetDartDefinesFileName: ${dart_define_file_name}
 
-          echo ls -la
+          ls -la
 
           echo $DART_DEFINE_BASE64 | base64 -d > /dart_defines/$dart_define_file_name.json
           flutter build ipa --export-options-plist=ios/$export_options_file --dart-define-from-file=dart_defines/$dart_define_file_name.json --build-number ${GITHUB_RUN_NUMBER}
